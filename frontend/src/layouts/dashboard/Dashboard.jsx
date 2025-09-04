@@ -16,9 +16,16 @@ function Dashboard() {
   const [dashboardData, setDashboardData] = useState([]);
 
   const getDashboard = async () => {
-    const response = await axios.get('api/dashboard')
-    setDashboardData(response.data)
+  try {
+    const response = await axios.get(
+      `${process.env.REACT_APP_API_URL}/api/dashboard`
+    );
+    setDashboardData(response.data);
+  } catch (error) {
+    console.error("Error fetching dashboard:", error);
   }
+};
+
   useEffect(() => {
     getDashboard()
   }, [])
